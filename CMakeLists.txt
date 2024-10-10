@@ -24,19 +24,21 @@ if(NOT DEFINED VENDOR_BINARY_DIR OR NOT DEFINED VENDOR_PREFIX_DIR OR NOT DEFINED
     message(FATAL_ERROR "please set vendor paths")
 endif()
 
-ExternalProject_Add(
-  my_repo_2
-  GIT_REPOSITORY https://github.com/ibrahimmtega/my_repo_2.git
-  GIT_TAG main
-  BINARY_DIR ${VENDOR_BINARY_DIR}/my_repo_2
-  PREFIX     ${VENDOR_PREFIX_DIR}/my_repo_2
-  SOURCE_DIR ${VENDOR_SRC_DIR}/my_repo_2
-  INSTALL_COMMAND ""
-  BUILD_ALWAYS ON
-  GIT_PROGRESS ON
-  # INSTALL_DIR ${CMAKE_SOURCE_DIR}/build/external/install
-  # CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/my_repo_2-install # Arguments passed to CMake of the external project
-)
+if(NOT TARGET my_repo_2 AND NOT TARGET my_repo_2_lib)
+    ExternalProject_Add(
+      my_repo_2
+      GIT_REPOSITORY https://github.com/ibrahimmtega/my_repo_2.git
+      GIT_TAG main
+      BINARY_DIR ${VENDOR_BINARY_DIR}/my_repo_2
+      PREFIX     ${VENDOR_PREFIX_DIR}/my_repo_2
+      SOURCE_DIR ${VENDOR_SRC_DIR}/my_repo_2
+      INSTALL_COMMAND ""
+      BUILD_ALWAYS ON
+      GIT_PROGRESS ON
+      # INSTALL_DIR ${CMAKE_SOURCE_DIR}/build/external/install
+      # CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/my_repo_2-install # Arguments passed to CMake of the external project
+    )
+endif()
 
 add_library(my_repo_lib STATIC
   main.cpp
