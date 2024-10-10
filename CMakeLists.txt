@@ -27,10 +27,11 @@ ExternalProject_Add(
   # CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/my_repo_2-install # Arguments passed to CMake of the external project
 )
 
-add_executable(my_repo
+add_library(my_repo_lib STATIC
   main.cpp
 )
-target_link_libraries(my_repo Qt${QT_VERSION_MAJOR}::Core)
+
+target_link_libraries(my_repo_lib Qt${QT_VERSION_MAJOR}::Core)
 
 add_library(my_repo_2_lib INTERFACE IMPORTED)
 set_target_properties(my_repo_2_lib PROPERTIES
@@ -38,6 +39,6 @@ set_target_properties(my_repo_2_lib PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/vendor/my_repo_2
 )
 add_dependencies(my_repo_2_lib my_repo_2)
-target_link_libraries(my_repo my_repo_2_lib)
+target_link_libraries(my_repo_lib my_repo_2_lib)
 
 
