@@ -46,11 +46,10 @@ target_link_libraries(my_repo_lib PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
 add_library(my_repo_2_lib INTERFACE IMPORTED)
 set_target_properties(my_repo_2_lib PROPERTIES
-  IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/build/vendor/my_repo_2/libmy_repo_2_lib.a
-  INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/vendor/my_repo_2
+  IMPORTED_LOCATION ${VENDOR_BINARY_DIR}/my_repo_2/libmy_repo_2_lib.a
+  INTERFACE_INCLUDE_DIRECTORIES ${VENDOR_SRC_DIR}/my_repo_2
 )
 add_dependencies(my_repo_2_lib my_repo_2)
-
 target_link_libraries(my_repo_lib PUBLIC my_repo_2_lib)
 
 
