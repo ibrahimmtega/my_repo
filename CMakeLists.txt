@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(qt_extension.cmake)
-# set(Qt6_DIR "/opt/Qt/6.5.3/macos/lib/cmake/Qt6")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
@@ -26,6 +25,7 @@ ExternalProject_Add(
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/vendor/my_repo_2
   INSTALL_COMMAND ""
   BUILD_ALWAYS ON
+  GIT_PROGRESS ON
   # INSTALL_DIR ${CMAKE_SOURCE_DIR}/build/external/install
   # CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/my_repo_2-install # Arguments passed to CMake of the external project
 )
