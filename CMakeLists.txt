@@ -13,16 +13,15 @@ if(NOT DEFINED Qt6_DIR)
     message(FATAL_ERROR "please set Qt6_DIR")
 endif()
 
+if(NOT DEFINED VENDOR_BINARY_DIR OR NOT DEFINED VENDOR_PREFIX_DIR OR NOT DEFINED VENDOR_SRC_DIR)
+    message(FATAL_ERROR "please set vendor paths")
+endif()
+
 include(${Qt6_DIR}/qt.toolchain.cmake)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 include(ExternalProject)
-
-
-if(NOT DEFINED VENDOR_BINARY_DIR OR NOT DEFINED VENDOR_PREFIX_DIR OR NOT DEFINED VENDOR_SRC_DIR)
-    message(FATAL_ERROR "please set vendor paths")
-endif()
 
 if(NOT TARGET my_repo_2)
     ExternalProject_Add(
