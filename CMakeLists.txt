@@ -42,7 +42,7 @@ add_library(my_repo_lib STATIC
   main.cpp
 )
 
-target_link_libraries(my_repo_lib Qt${QT_VERSION_MAJOR}::Core)
+target_link_libraries(my_repo_lib PUBLIC Qt${QT_VERSION_MAJOR}::Core)
 
 add_library(my_repo_2_lib INTERFACE IMPORTED)
 set_target_properties(my_repo_2_lib PROPERTIES
