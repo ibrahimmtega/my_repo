@@ -24,20 +24,23 @@ if(NOT DEFINED VENDOR_BINARY_DIR OR NOT DEFINED VENDOR_PREFIX_DIR OR NOT DEFINED
     message(FATAL_ERROR "please set vendor paths")
 endif()
 
-if(NOT TARGET my_repo_2 AND NOT TARGET my_repo_2_lib)
+if(NOT TARGET my_repo_2)
     ExternalProject_Add(
       my_repo_2
       GIT_REPOSITORY https://github.com/ibrahimmtega/my_repo_2.git
       GIT_TAG main
       BINARY_DIR ${VENDOR_BINARY_DIR}/my_repo_2
-      PREFIX     ${VENDOR_PREFIX_DIR}/my_repo_2
+      PREFIX ${VENDOR_PREFIX_DIR}/my_repo_2
       SOURCE_DIR ${VENDOR_SRC_DIR}/my_repo_2
       INSTALL_COMMAND ""
       BUILD_ALWAYS ON
       GIT_PROGRESS ON
-      # INSTALL_DIR ${CMAKE_SOURCE_DIR}/build/external/install
-      # CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/my_repo_2-install # Arguments passed to CMake of the external project
-    )
+      CMAKE_ARGS
+        -DVENDOR_SRC_DIR=${VENDOR_SRC_DIR}
+        -DVENDOR_BINARY_DIR=${VENDOR_BINARY_DIR}
+        -DVENDOR_PREFIX_DIR=${VENDOR_PREFIX_DIR}
+        -DQt6_DIR=${Qt6_DIR}
+     )
 endif()
 
 add_library(my_repo_lib STATIC
@@ -54,7 +57,7 @@ target_link_libraries(my_repo_lib  Qt${QT_VERSION_MAJOR}::Core)
 # add_dependencies(my_repo_2_lib my_repo_2)
 # target_link_libraries(my_repo_lib PUBLIC my_repo_2_lib)
 
-if(NOT TARGET my_repo_2 AND NOT TARGET my_repo_2_lib)
+if(NOT TARGET my_repo_2_lib)
     add_library(my_repo_2_lib INTERFACE IMPORTED)
     set_target_properties(my_repo_2_lib PROPERTIES
       IMPORTED_LOCATION ${VENDOR_BINARY_DIR}/my_repo_2/libmy_repo_2_lib.a
