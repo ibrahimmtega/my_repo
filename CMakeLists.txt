@@ -60,5 +60,4 @@ if(NOT TARGET my_repo_2 AND NOT TARGET my_repo_2_lib)
     )
 endif()
 add_dependencies(my_repo_2_lib my_repo_2)
-target_link_libraries(my_repo_lib my_repo_2_lib)
-
+target_link_libraries(my_repo_lib  my_repo_2_lib)
