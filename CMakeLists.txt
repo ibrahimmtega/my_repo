@@ -25,7 +25,7 @@ if(NOT DEFINED VENDOR_BINARY_DIR OR NOT DEFINED VENDOR_PREFIX_DIR OR NOT DEFINED
 endif()
 
 ExternalProject_Add(
-  my_repo_2
+  _my_repo_2
   GIT_REPOSITORY https://github.com/ibrahimmtega/my_repo_2.git
   GIT_TAG main
   BINARY_DIR ${VENDOR_BINARY_DIR}/my_repo_2
