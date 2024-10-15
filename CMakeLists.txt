@@ -42,11 +42,14 @@ if(NOT TARGET my_repo_2)
      )
 endif()
 
-add_library(my_repo_lib STATIC
-  main.cpp
-)
+add_library(my_repo_lib INTERFACE IMPORTED GLOBAL)
 
-target_link_libraries(my_repo_lib  Qt${QT_VERSION_MAJOR}::Core)
+set_target_properties(my_repo_lib PROPERTIES
+  # IMPORTED_LOCATION ${BINARY_DIR}/${LIB_NAME}
+  INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/include
+  # INTERFACE_SOURCES ${SOURCES}
+)
+target_link_libraries(my_repo_lib INTERFACE Qt${QT_VERSION_MAJOR}::Core)
 
 if(NOT TARGET my_repo_2_lib)
     add_library(my_repo_2_lib INTERFACE IMPORTED)
@@ -56,4 +59,4 @@ if(NOT TARGET my_repo_2_lib)
     )
 endif()
 add_dependencies(my_repo_2_lib my_repo_2)
-target_link_libraries(my_repo_lib  my_repo_2_lib)
+target_link_libraries(my_repo_lib INTERFACE  my_repo_2_lib)
